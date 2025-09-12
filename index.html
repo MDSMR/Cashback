@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Voucher</title>
-  <!-- build: 2025-09-12 v3 -->
-  <link rel="stylesheet" href="./style.css?v=2025-09-12-v3" />
+  <!-- build: 2025-09-12 v4 -->
+  <link rel="stylesheet" href="./style.css?v=2025-09-12-v4" />
 </head>
 <body>
   <form method="POST" id="invoiceForm" novalidate>
@@ -16,13 +16,13 @@
 
     <!-- Header -->
     <div class="receipt-header">
-      <div class="brand">قسيمة خصم</div>
+      <div class="brand">قسيمة كاش باك</div>
       <div class="unique-id" id="uniqueIdDisplay">—</div>
       <input type="hidden" name="الكود" id="uniqueIdHidden">
       <div class="sep"></div>
     </div>
 
-    <!-- Date (kept as a field, but NOT displayed under the code) -->
+    <!-- Date (field only; no date under the code) -->
     <div class="form-row">
       <label for="date">التاريخ</label>
       <div class="field">
@@ -39,7 +39,7 @@
           <option value="الزيارة الأولى" selected>الزيارة الأولى</option>
           <option value="عميل دائم">عميل دائم</option>
         </select>
-        <div class="hint" id="rateHint">نسبة الخصم: <span id="rateText">20%</span></div>
+        <div class="hint" id="rateHint">نسبة الكاش باك: <span id="rateText">20%</span></div>
         <div class="error-msg" id="visitsError"></div>
       </div>
     </div>
@@ -63,22 +63,13 @@
       <div class="error-msg" id="amountError"></div>
     </div>
 
-    <!-- Discount (readonly) -->
+    <!-- Cashback (readonly) -->
     <div class="form-row">
-      <label for="discountAmount">قيمة الخصم</label>
+      <label for="discountAmount">قيمة الكاش باك</label>
       <div class="amount-wrapper">
-        <input type="number" id="discountAmount" name="قيمة الخصم" readonly class="w-100">
+        <input type="number" id="discountAmount" name="قيمة الكاش باك" readonly class="w-100">
         <span class="currency-label">جنيه مصري</span>
       </div>
-    </div>
-
-    <!-- Print-only summary -->
-    <div class="print-summary">
-      <div class="summary-row"><span>قيمة الفاتورة</span><span id="amountText">—</span></div>
-      <div class="summary-row"><span>نسبة الخصم</span><span id="rateOnlyText">—</span></div>
-      <div class="summary-row"><span>قيمة الخصم</span><span id="discountText">—</span></div>
-      <div class="summary-row total"><span>الصافي بعد الخصم</span><span id="netText">—</span></div>
-      <div class="sep dotted"></div>
     </div>
 
     <!-- Actions -->
@@ -88,11 +79,11 @@
 
     <!-- Terms -->
     <div class="coupon-box">
-      هذا كوبون الخصم صالح لمدة خمسة عشرة يوم من تاريخ الإصدار ويُستخدم داخل المطعم فقط.
-      لا يمكن استخدامه مع أي عروض أخرى. للاستفسار: 01100118444
+      هذه القسيمة صالحة للاستخدام في الزيارة التالية خلال خمسة عشرة يومًا من تاريخ الإصدار،
+      وتُستخدم داخل المطعم فقط. غير قابلة للاستخدام مع أي عروض أخرى. للاستفسار: 01100118444
     </div>
   </form>
 
-  <script src="./script.js?v=2025-09-12-v3"></script>
+  <script src="./script.js?v=2025-09-12-v4"></script>
 </body>
 </html>
