@@ -1,3 +1,4 @@
+// build: 2025-09-12 v3
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('invoiceForm');
   const submitBtn = document.querySelector('.save-print-btn');
@@ -17,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const visitsError = document.getElementById('visitsError');
   const amountError = document.getElementById('amountError');
 
-  // Discounts
+  // Discounts (only two)
   const discountRates = {
     "الزيارة الأولى": 0.20,
     "عميل دائم": 0.25
