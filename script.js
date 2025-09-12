@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('invoiceForm');
   const submitBtn = document.querySelector('.save-print-btn');
-  const arabicDateDiv = document.getElementById('arabicDateDisplay');
 
   const rateText = document.getElementById('rateText');
   const rateOnlyText = document.getElementById('rateOnlyText');
@@ -18,10 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const visitsError = document.getElementById('visitsError');
   const amountError = document.getElementById('amountError');
 
-  // New discount table (only two options)
+  // Discounts
   const discountRates = {
-    "الزيارة الأولى": 0.20, // 20%
-    "عميل دائم": 0.25      // 25%
+    "الزيارة الأولى": 0.20,
+    "عميل دائم": 0.25
   };
 
   function generateUniqueId() {
@@ -36,13 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const mm = String(today.getMonth() + 1).padStart(2, '0');
     const dd = String(today.getDate()).padStart(2, '0');
     dateEl.value = `${yyyy}-${mm}-${dd}`;
-    arabicDateDiv.textContent = formatArabicDate(dateEl.value);
-  }
-
-  function formatArabicDate(dateStr) {
-    const date = new Date(dateStr);
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return date.toLocaleDateString('ar-EG', options);
   }
 
   function formatMoney(n){
@@ -64,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     discountEl.value = discount ? discount.toFixed(2) : '';
 
-    // Update on-screen hint and print-only summary
     const ratePctText = ratePercentFor(visitType);
     if (rateText) rateText.textContent = ratePctText;
     if (rateOnlyText) rateOnlyText.textContent = ratePctText;
@@ -81,25 +72,11 @@ document.addEventListener('DOMContentLoaded', () => {
     clearErrors();
     let ok = true;
 
-    if (!dateEl.value){
-      dateError.textContent = 'يرجى اختيار التاريخ.';
-      ok = false;
-    }
-    if (!visitsEl.value){
-      visitsError.textContent = 'يرجى اختيار نوع الزيارة.';
-      ok = false;
-    }
-    const amount = parseFloat(amountEl.value);
-    if (!(amount > 0)){
-      amountError.textContent = 'أدخل قيمة أكبر من صفر.';
-      ok = false;
-    }
-    // Ensure discount is calculated
+    if (!dateEl.value){ dateError.textContent = 'يرجى اختيار التاريخ.'; ok = false; }
+    if (!visitsEl.value){ visitsError.textContent = 'يرجى اختيار نوع الزيارة.'; ok = false; }
+    if (!(parseFloat(amountEl.value) > 0)){ amountError.textContent = 'أدخل قيمة أكبر من صفر.'; ok = false; }
     updateDiscount();
-    if (!discountEl.value){
-      // If rate is zero or amount invalid, discount will be empty
-      ok = false;
-    }
+    if (!discountEl.value){ ok = false; }
     return ok;
   }
 
@@ -108,27 +85,16 @@ document.addEventListener('DOMContentLoaded', () => {
   setDefaultDate();
   updateDiscount();
 
-  visitsEl.addEventListener('change', () => { updateDiscount(); });
-  amountEl.addEventListener('input', () => { updateDiscount(); });
-  dateEl.addEventListener('change', () => {
-    arabicDateDiv.textContent = formatArabicDate(dateEl.value);
-  });
+  visitsEl.addEventListener('change', updateDiscount);
+  amountEl.addEventListener('input', updateDiscount);
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-
     if (!navigator.onLine) {
       alert("❌ لا يوجد اتصال بالإنترنت. يرجى التحقق من الشبكة قبل إرسال النموذج.");
       return;
     }
-
-    if (!validate()){
-      // Focus first invalid field
-      if (!dateEl.value) { dateEl.focus(); return; }
-      if (!visitsEl.value) { visitsEl.focus(); return; }
-      if (!(parseFloat(amountEl.value) > 0)) { amountEl.focus(); return; }
-      return;
-    }
+    if (!validate()){ return; }
 
     submitBtn.disabled = true;
     const formData = new FormData(form);
@@ -138,13 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
       body: formData,
       headers: { 'Accept': 'application/json' }
     }).then(() => {
-      // Ensure summary is fresh before printing
       updateDiscount();
-
-      // Print
       window.print();
-
-      // Reset
       setTimeout(() => {
         form.reset();
         setDefaultDate();
