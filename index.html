@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Voucher</title>
-  <link rel="stylesheet" href="./style.css" />
+  <!-- build: 2025-09-12 v3 -->
+  <link rel="stylesheet" href="./style.css?v=2025-09-12-v3" />
 </head>
 <body>
   <form method="POST" id="invoiceForm" novalidate>
@@ -21,7 +22,7 @@
       <div class="sep"></div>
     </div>
 
-    <!-- Date -->
+    <!-- Date (kept as a field, but NOT displayed under the code) -->
     <div class="form-row">
       <label for="date">التاريخ</label>
       <div class="field">
@@ -62,7 +63,7 @@
       <div class="error-msg" id="amountError"></div>
     </div>
 
-    <!-- Discount -->
+    <!-- Discount (readonly) -->
     <div class="form-row">
       <label for="discountAmount">قيمة الخصم</label>
       <div class="amount-wrapper">
@@ -92,6 +93,6 @@
     </div>
   </form>
 
-  <script src="./script.js"></script>
+  <script src="./script.js?v=2025-09-12-v3"></script>
 </body>
 </html>
