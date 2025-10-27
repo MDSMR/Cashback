@@ -1,89 +1,76 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" >
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>Voucher</title>
-  <!-- build: 2025-09-12 v4 -->
-  <link rel="stylesheet" href="./style.css?v=2025-09-12-v4" />
+  <link rel="stylesheet" href="./style.css">
+
 </head>
 <body>
-  <form method="POST" id="invoiceForm" novalidate>
-    <!-- FormSubmit config -->
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_subject" value="New Invoice Submission">
+<!-- partial:index.partial.html -->
+<form method="POST" id="invoiceForm">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_template" value="table">
+  <input type="hidden" name="_subject" value="New Invoice Submission">
 
-    <!-- Header -->
-    <div class="receipt-header">
-      <div class="brand">قسيمة كاش باك</div>
-      <div class="unique-id" id="uniqueIdDisplay">—</div>
-      <input type="hidden" name="الكود" id="uniqueIdHidden">
-      <div class="sep"></div>
+  <div class="unique-id" id="uniqueIdDisplay"></div>
+  <input type="hidden" name="الكود" id="uniqueIdHidden">
+
+  <div class="form-row">
+    <label for="date">التاريخ</label>
+    <div class="amount-wrapper">
+      <input type="date" id="date" name="التاريخ" required style="width: 5.4cm;">
     </div>
+    <div id="arabicDateDisplay" class="arabic-date"></div>
+  </div>
 
-    <!-- Date (field only; no date under the code) -->
-    <div class="form-row">
-      <label for="date">التاريخ</label>
-      <div class="field">
-        <input type="date" id="date" name="التاريخ" required class="w-100">
-        <div class="error-msg" id="dateError"></div>
-      </div>
+  <div class="form-row">
+    <label for="visits">عدد الزيارات</label>
+    <div class="amount-wrapper">
+      <select id="visits" name="عدد الزيارات" required style="width: 5.4cm;">
+        <option value="الزيارة الأولى" selected>الزيارة الأولى</option>
+        <option value="الزيارة الثانية">الزيارة الثانية</option>
+        <option value="الزيارة الثالثة">الزيارة الثالثة</option>
+        <option value="عميل دائم">عميل دائم</option>
+      </select>
     </div>
+  </div>
 
-    <!-- Visit type -->
-    <div class="form-row">
-      <label for="visits">عدد الزيارات</label>
-      <div class="field">
-        <select id="visits" name="عدد الزيارات" required class="w-100">
-          <option value="الزيارة الأولى" selected>الزيارة الأولى</option>
-          <option value="عميل دائم">عميل دائم</option>
-        </select>
-        <div class="hint" id="rateHint">نسبة الكاش باك: <span id="rateText">20%</span></div>
-        <div class="error-msg" id="visitsError"></div>
-      </div>
+  <div class="form-row">
+    <label for="invoiceAmount">قيمة الفاتورة</label>
+    <div class="amount-wrapper">
+      <input
+        type="number"
+        id="invoiceAmount"
+        name="قيمة الفاتورة"
+        required
+        min="1"
+        step="0.01"
+        style="width: 5.4cm;"
+        onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode === 46"
+      >
+      <span class="currency-label">جنيه مصري</span>
     </div>
+  </div>
 
-    <!-- Invoice amount -->
-    <div class="form-row">
-      <label for="invoiceAmount">قيمة الفاتورة</label>
-      <div class="amount-wrapper">
-        <input
-          type="number"
-          id="invoiceAmount"
-          name="قيمة الفاتورة"
-          required
-          min="1"
-          step="0.01"
-          class="w-100"
-          onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode === 46"
-        >
-        <span class="currency-label">جنيه مصري</span>
-      </div>
-      <div class="error-msg" id="amountError"></div>
+  <div class="form-row">
+    <label for="discountAmount">قيمة الخصم</label>
+    <div class="amount-wrapper">
+      <input type="number" id="discountAmount" name="قيمة الخصم" readonly style="width: 5.4cm;">
+      <span class="currency-label">جنيه مصري</span>
     </div>
+  </div>
 
-    <!-- Cashback (readonly) -->
-    <div class="form-row">
-      <label for="discountAmount">قيمة الكاش باك</label>
-      <div class="amount-wrapper">
-        <input type="number" id="discountAmount" name="قيمة الكاش باك" readonly class="w-100">
-        <span class="currency-label">جنيه مصري</span>
-      </div>
-    </div>
+  <div class="buttons">
+    <button type="submit" class="save-print-btn">حفظ وطباعة</button>
+  </div>
 
-    <!-- Actions -->
-    <div class="buttons">
-      <button type="submit" class="save-print-btn">حفظ وطباعة</button>
-    </div>
+  <div class="coupon-box">
+    هذا كوبون الخصم صالح لمدة خمسة عشرة يوم من تاريخ الإصدار ويُستخدم داخل المطعم فقط. لا يمكن استخدامه مع أي عروض أخرى. للاستفسار: 01100118444
+  </div>
+</form>
+<!-- partial -->
+  <script  src="./script.js"></script>
 
-    <!-- Terms -->
-    <div class="coupon-box">
-      هذه القسيمة صالحة للاستخدام في الزيارة التالية خلال خمسة عشرة يومًا من تاريخ الإصدار،
-      وتُستخدم داخل المطعم فقط. غير قابلة للاستخدام مع أي عروض أخرى. للاستفسار: 01100118444
-    </div>
-  </form>
-
-  <script src="./script.js?v=2025-09-12-v4"></script>
 </body>
 </html>
