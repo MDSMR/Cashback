@@ -1,184 +1,213 @@
-/* build: 2025-09-12 v4 */
-/* ===== Screen (default) ===== */
-:root{
-  --ink:#222;
-  --accent:#c00;
-  --muted:#777;
-  --bg:#f9f9f9;
-  --radius:10px;
-}
-
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  font-family:'Segoe UI', Tahoma, Arial, sans-serif;
-  background: var(--bg);
-  color: var(--ink);
-  margin:0;
-  padding:20px;
+/* ✅ General Layout */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f9f9f9;
+  padding: 1.5cm;
+  color: #333;
   direction: rtl;
-  text-align: right; /* global right alignment */
+  text-align: center;
 }
 
-form{
-  width: 360px;
-  margin: 0 auto;
-  background:#fff;
-  border-radius: var(--radius);
-  padding: 20px 20px 28px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+h1 {
+  color: #c00;
+  margin-bottom: 1cm;
 }
 
-.receipt-header{
-  text-align:center;
-  margin-bottom: 10px;
-}
-.brand{
-  font-weight:700;
-  font-size: 18px;
-  color: var(--accent);
-  letter-spacing:.5px;
-  margin-bottom:6px;
-}
-.unique-id{
-  font-weight:700;
-  font-size: 20px;
-  margin-bottom: 4px;
+.print-title {
+  display: none;
+  font-size: 1.0cm;
+  font-weight: bold;
+  color: #c00;
+  margin-bottom: 1cm;
 }
 
-.sep{
-  height:1px;
-  background: #eee;
-  margin: 10px 0 16px;
-}
-
-.form-row{ margin-bottom:14px; }
-label{
-  display:block;
-  font-size: 14px;
-  font-weight:600;
-  margin-bottom:6px;
-  text-align: right;
-}
-.field{position:relative;}
-.hint{
-  font-size:12px;
-  color: var(--muted);
-  margin-top:6px;
+form {
+  width: 7.5cm;
+  margin: auto;
+  background: #fff;
+  padding: 1.2cm;
+  border-radius: 0.5cm;
+  box-shadow: 0 0 0.3cm rgba(0, 0, 0, 0.1);
   text-align: right;
 }
 
-input, select, button{ font: inherit; }
+.form-row {
+  margin-bottom: 0.8cm;
+}
 
-/* Right-align all inputs/selects */
-input[type="date"],
-input[type="number"],
-select{
-  width:100%;
-  padding: 10px 12px;
-  border:1px solid #ddd;
-  border-radius:8px;
-  outline:none;
-  transition: box-shadow .2s, border-color .2s;
-  background:#fff;
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.3cm;
   text-align: right;
-  direction: rtl;
-}
-input:focus, select:focus{
-  border-color:#bbb;
-  box-shadow: 0 0 0 3px rgba(0,0,0,.04);
+  font-size: 0.7cm;
 }
 
-.amount-wrapper{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  justify-content: flex-end; /* keep value + currency on right */
-}
-.currency-label{
-  display:none; /* hidden on screen; shown in print */
-  font-weight:600;
+input,
+select {
+  padding: 0.3cm;
+  border: 1px solid #ccc;
+  border-radius: 0.3cm;
+  text-align: center;
+  font-size: 0.6cm;
 }
 
-.error-msg{
-  min-height:16px;
-  margin-top:6px;
-  font-size:12px;
-  color:#b3261e;
-  text-align: right;
+.amount-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.1cm;
 }
 
-.buttons{
-  margin-top:16px;
-  display:flex;
-  justify-content:center;
-}
-.save-print-btn{
-  background: var(--accent);
-  color:#fff;
-  border:0;
-  border-radius:8px;
-  padding: 10px 18px;
-  font-weight:700;
-  cursor:pointer;
-}
-.save-print-btn:disabled{ opacity:.6; cursor:not-allowed; }
-
-.coupon-box{
-  margin:16px auto 0;
-  text-align:center;
-  line-height:1.5;
-  color: var(--accent);
-  font-weight:700;
-  font-size: 13px;
-  max-width: 360px;
+.currency-label {
+  display: none; /* Hidden on screen */
 }
 
-.w-100{width:100%}
+.unique-id {
+  font-weight: bold;
+  font-size: 0.8cm;
+  margin-bottom: 1cm;
+  text-align: center;
+}
 
-/* ===== Print ===== */
-@media print{
-  body, form { background:#fff; color:#000; box-shadow:none; text-align:right; }
-  @page{ size: 80mm auto; margin: 8mm; }
+.arabic-date {
+  display: none;
+  font-weight: bold;
+  margin-top: 0.3cm;
+  color: #333;
+}
 
-  /* Show inputs in print, but make them look like plain text */
-  input, select{
-    display:block !important;
-    border:none !important;
-    background:transparent !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    box-shadow: none !important;
-    text-align: right !important;
-    direction: rtl !important;
-    font-size: 12px !important;
-  }
+.buttons {
+  margin-top: 1cm;
+  display: flex;
+  justify-content: center;
+}
 
-  .buttons, .hint, .error-msg { display: none !important; }
+.save-print-btn {
+  background: #c00;
+  color: white;
+  padding: 0.5cm 1.5cm;
+  border: none;
+  border-radius: 0.3cm;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.5cm;
+}
 
-  .brand{ font-size: 16px; }
-  .unique-id{ font-size: 18px; }
+.coupon-box {
+  width: 100%;
+  max-width: 7.5cm;
+  margin: 1cm auto 0 auto;
+  color: #c00;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1.4;
+  font-size: 0.4cm;
+  word-wrap: break-word;
+  white-space: normal;
+}
 
-  label{
-    font-size: 12px;
-    margin-bottom: 2px;
+/* ✅ Print Styling */
+@media print {
+  body,
+  form,
+  .form-row,
+  label,
+  input,
+  select {
+    direction: rtl;
     text-align: right;
+    font-size: 0.5cm;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  .amount-wrapper{
-    justify-content:flex-end;
-    gap: 4px;
-  }
-  .currency-label{
-    display:inline !important;
-    font-size:12px;
+  form {
+    width: 7.5cm;
+    margin: auto;
+    padding: 0.6cm;
+    box-shadow: none;
   }
 
-  .coupon-box{
-    font-size:12px;
-    margin-top: 10px;
-    text-align:center;
+  .print-title {
+    display: block;
+    text-align: center;
+    font-size: 0.65cm;
+    font-weight: bold;
+    margin-bottom: 0.5cm;
   }
 
-  .sep{ background:#000; opacity:.12; margin: 8px 0 12px; }
+  h1,
+  .buttons {
+    display: none;
+  }
+
+  .form-row {
+    margin-bottom: 0.8cm;
+  }
+
+  label {
+    font-size: 0.65cm;
+    margin-bottom: 0.3cm;
+  }
+
+  input,
+  select {
+    display: block;
+    font-size: 0.6cm;
+    margin: 0.3cm 0;
+    text-align: right;
+    border: none;
+    background: none;
+    padding: 0;
+  }
+
+  input[type="date"],
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+
+  input[type="date"] {
+    display: none;
+  }
+
+  #arabicDateDisplay {
+    display: block;
+    font-weight: bold;
+    font-size: 0.45cm;
+    margin-top: 0.3cm;
+    color: #333;
+  }
+
+  .coupon-box {
+    max-width: 7.5cm;
+    margin: 1.5cm auto 0 auto;
+    font-size: 0.45cm;
+    color: #c00;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .currency-label {
+    display: inline;
+    font-weight: bold;
+    font-size: 0.45cm;
+    margin-right: 0.2cm;
+    color: #333;
+    white-space: nowrap;
+  }
+
+  .amount-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.3cm;
+  }
+
+  @page {
+    size: 7.7cm auto;
+    margin: 1cm;
+  }
 }
